@@ -45,7 +45,7 @@ import { addTracingOperationImports } from "./utils/tracingUtils";
 import {
   addPagingEsNextRef,
   addPagingImports,
-  preparePageableOperations,
+  privatizePageableOperations,
   writeAsyncIterators
 } from "./utils/pagingOperations";
 import { calculateMethodName } from "./utils/operationsUtils";
@@ -547,7 +547,7 @@ export function writeOperations(
 ) {
   const { tracingInfo } = getAutorestOptions();
 
-  preparePageableOperations(operationGroupDetails);
+  privatizePageableOperations(operationGroupDetails);
   writeAsyncIterators(
     operationGroupDetails,
     clientDetails,

@@ -24,7 +24,7 @@ import { addTracingOperationImports } from "./utils/tracingUtils";
 import {
   addPagingEsNextRef,
   addPagingImports,
-  preparePageableOperations,
+  privatizePageableOperations,
   writeAsyncIterators
 } from "./utils/pagingOperations";
 import { calculateMethodName } from "./utils/operationsUtils";
@@ -176,7 +176,7 @@ export function writeOperations(
   modelNames: Set<string>,
   clientDetails: ClientDetails
 ) {
-  preparePageableOperations(operationGroupDetails);
+  privatizePageableOperations(operationGroupDetails);
   writeAsyncIterators(
     operationGroupDetails,
     clientDetails,

@@ -85,7 +85,7 @@ export function hasAsyncIteratorOperations(operations: OperationDetails[]) {
  * AsyncIterators, adding some extra metadata sunc as scope and prefix
 
  */
-export function preparePageableOperations(
+export function privatizePageableOperations(
   operationGroupDetails: OperationGroupDetails
 ) {
   const { disablePagingAsyncIterators } = getAutorestOptions();
