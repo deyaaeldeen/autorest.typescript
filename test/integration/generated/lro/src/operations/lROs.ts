@@ -2626,10 +2626,12 @@ export class LROsImpl implements LROs {
     const lro = new CoreClientLro(
       sendOperation,
       { options },
-      postDoubleHeadersFinalLocationGetOperationSpec,
-      "location"
+      postDoubleHeadersFinalLocationGetOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -2700,10 +2702,12 @@ export class LROsImpl implements LROs {
     const lro = new CoreClientLro(
       sendOperation,
       { options },
-      postDoubleHeadersFinalAzureHeaderGetOperationSpec,
-      "azure-async-operation"
+      postDoubleHeadersFinalAzureHeaderGetOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

@@ -402,6 +402,7 @@ describe("LROs", () => {
       );
       assert.equal(result.name, "foo");
       assert.equal(result.id, "100");
+      console.log(JSON.stringify(result));
       assert.deepEqual(result.provisioningState, "Succeeded");
     });
 

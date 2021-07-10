@@ -21,13 +21,13 @@ export class LroEngine<
   constructor(lro: LongRunningOperation<TResult>, options?: LroEngineOptions) {
     const { intervalInMs = 2000, resumeFrom } = options || {};
     function deserializeState(
-      resumeFrom: string
+      serializedState: string
     ): TState & ResumablePollOperationState<TResult> {
       try {
-        return JSON.parse(resumeFrom).state;
+        return JSON.parse(serializedState).state;
       } catch (e) {
         throw new Error(
-          `LroEngine: Unable to deserialize state: ${resumeFrom}`
+          `LroEngine: Unable to deserialize state: ${serializedState}`
         );
       }
     }
@@ -35,7 +35,11 @@ export class LroEngine<
       ? deserializeState(resumeFrom)
       : ({} as any);
 
-    const operation = new GenericPollOperation(state, lro);
+    const operation = new GenericPollOperation(
+      state,
+      lro,
+      options?.lroResourceLocationConfig
+    );
     super(operation);
 
     this.intervalInMs = intervalInMs;
