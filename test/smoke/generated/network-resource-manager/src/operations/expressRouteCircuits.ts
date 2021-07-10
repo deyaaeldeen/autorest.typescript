@@ -204,10 +204,12 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, circuitName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -306,10 +308,12 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, circuitName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -416,10 +420,12 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
-      listArpTableOperationSpec,
-      "location"
+      listArpTableOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -511,10 +517,12 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
-      listRoutesTableOperationSpec,
-      "location"
+      listRoutesTableOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -606,10 +614,12 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
-      listRoutesTableSummaryOperationSpec,
-      "location"
+      listRoutesTableSummaryOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

@@ -194,10 +194,12 @@ export class PublicIPPrefixesImpl implements PublicIPPrefixes {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, publicIpPrefixName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -296,10 +298,12 @@ export class PublicIPPrefixesImpl implements PublicIPPrefixes {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, publicIpPrefixName, parameters, options },
-      createOrUpdateOperationSpec,
-      "location"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

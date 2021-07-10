@@ -221,10 +221,12 @@ export class VpnSitesImpl implements VpnSites {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, vpnSiteName, vpnSiteParameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -321,10 +323,12 @@ export class VpnSitesImpl implements VpnSites {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, vpnSiteName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

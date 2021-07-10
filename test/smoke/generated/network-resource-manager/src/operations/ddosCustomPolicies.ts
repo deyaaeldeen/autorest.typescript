@@ -91,10 +91,12 @@ export class DdosCustomPoliciesImpl implements DdosCustomPolicies {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, ddosCustomPolicyName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -193,10 +195,12 @@ export class DdosCustomPoliciesImpl implements DdosCustomPolicies {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, ddosCustomPolicyName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

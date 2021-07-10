@@ -194,10 +194,12 @@ export class NatGatewaysImpl implements NatGateways {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, natGatewayName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -296,10 +298,12 @@ export class NatGatewaysImpl implements NatGateways {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, natGatewayName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

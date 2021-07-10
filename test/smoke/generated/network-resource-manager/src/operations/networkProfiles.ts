@@ -194,10 +194,12 @@ export class NetworkProfilesImpl implements NetworkProfiles {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkProfileName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

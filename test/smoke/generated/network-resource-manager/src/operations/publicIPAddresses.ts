@@ -374,10 +374,12 @@ export class PublicIPAddressesImpl implements PublicIPAddresses {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, publicIpAddressName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -476,10 +478,12 @@ export class PublicIPAddressesImpl implements PublicIPAddresses {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, publicIpAddressName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

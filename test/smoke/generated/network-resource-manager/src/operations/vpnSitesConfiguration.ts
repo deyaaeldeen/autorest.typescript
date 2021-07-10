@@ -86,10 +86,12 @@ export class VpnSitesConfigurationImpl implements VpnSitesConfiguration {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualWANName, request, options },
-      downloadOperationSpec,
-      "location"
+      downloadOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

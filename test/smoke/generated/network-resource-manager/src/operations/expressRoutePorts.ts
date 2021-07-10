@@ -197,10 +197,12 @@ export class ExpressRoutePortsImpl implements ExpressRoutePorts {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, expressRoutePortName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -299,10 +301,12 @@ export class ExpressRoutePortsImpl implements ExpressRoutePorts {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, expressRoutePortName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

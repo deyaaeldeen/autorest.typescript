@@ -769,10 +769,12 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, bastionHostName, bslRequest, options },
-      putBastionShareableLinkOperationSpec,
-      "location"
+      putBastionShareableLinkOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -830,10 +832,12 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, bastionHostName, bslRequest, options },
-      deleteBastionShareableLinkOperationSpec,
-      "location"
+      deleteBastionShareableLinkOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -935,10 +939,12 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, bastionHostName, options },
-      getActiveSessionsOperationSpec,
-      "location"
+      getActiveSessionsOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1059,10 +1065,12 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualWANName, vpnClientParams, options },
-      generatevirtualwanvpnserverconfigurationvpnprofileOperationSpec,
-      "location"
+      generatevirtualwanvpnserverconfigurationvpnprofileOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

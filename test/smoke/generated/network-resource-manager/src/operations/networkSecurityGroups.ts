@@ -194,10 +194,12 @@ export class NetworkSecurityGroupsImpl implements NetworkSecurityGroups {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkSecurityGroupName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -296,10 +298,12 @@ export class NetworkSecurityGroupsImpl implements NetworkSecurityGroups {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkSecurityGroupName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

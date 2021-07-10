@@ -172,10 +172,12 @@ export class SubnetsImpl implements Subnets {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualNetworkName, subnetName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -287,10 +289,12 @@ export class SubnetsImpl implements Subnets {
         subnetParameters,
         options
       },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -382,10 +386,12 @@ export class SubnetsImpl implements Subnets {
         prepareNetworkPoliciesRequestParameters,
         options
       },
-      prepareNetworkPoliciesOperationSpec,
-      "location"
+      prepareNetworkPoliciesOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -478,10 +484,12 @@ export class SubnetsImpl implements Subnets {
         unprepareNetworkPoliciesRequestParameters,
         options
       },
-      unprepareNetworkPoliciesOperationSpec,
-      "location"
+      unprepareNetworkPoliciesOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

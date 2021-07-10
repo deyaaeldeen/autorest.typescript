@@ -176,10 +176,12 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
         parameters,
         options
       },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -281,10 +283,12 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -391,10 +395,12 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
-      stopOperationSpec,
-      "location"
+      stopOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -474,10 +480,12 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
-      startOperationSpec,
-      "location"
+      startOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -562,10 +570,12 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
-      queryOperationSpec,
-      "location"
+      queryOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

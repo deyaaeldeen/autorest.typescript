@@ -253,10 +253,12 @@ export class WebApplicationFirewallPoliciesImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, policyName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

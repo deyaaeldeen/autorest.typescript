@@ -221,10 +221,12 @@ export class VirtualHubsImpl implements VirtualHubs {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualHubName, virtualHubParameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -321,10 +323,12 @@ export class VirtualHubsImpl implements VirtualHubs {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualHubName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

@@ -178,10 +178,12 @@ export class VirtualNetworkGatewayConnectionsImpl
         parameters,
         options
       },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -277,10 +279,12 @@ export class VirtualNetworkGatewayConnectionsImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayConnectionName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -367,10 +371,12 @@ export class VirtualNetworkGatewayConnectionsImpl
         parameters,
         options
       },
-      updateTagsOperationSpec,
-      "azure-async-operation"
+      updateTagsOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -463,10 +469,12 @@ export class VirtualNetworkGatewayConnectionsImpl
         parameters,
         options
       },
-      setSharedKeyOperationSpec,
-      "azure-async-operation"
+      setSharedKeyOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -599,10 +607,12 @@ export class VirtualNetworkGatewayConnectionsImpl
         parameters,
         options
       },
-      resetSharedKeyOperationSpec,
-      "location"
+      resetSharedKeyOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -691,10 +701,12 @@ export class VirtualNetworkGatewayConnectionsImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayConnectionName, options },
-      startPacketCaptureOperationSpec,
-      "location"
+      startPacketCaptureOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -784,10 +796,12 @@ export class VirtualNetworkGatewayConnectionsImpl
         parameters,
         options
       },
-      stopPacketCaptureOperationSpec,
-      "location"
+      stopPacketCaptureOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

@@ -92,10 +92,12 @@ export class VpnServerConfigurationsAssociatedWithVirtualWanImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, virtualWANName, options },
-      listOperationSpec,
-      "location"
+      listOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

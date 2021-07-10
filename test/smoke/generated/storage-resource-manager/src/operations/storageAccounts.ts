@@ -514,10 +514,12 @@ export class StorageAccountsImpl implements StorageAccounts {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, accountName, options },
-      failoverOperationSpec,
-      "location"
+      failoverOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -607,10 +609,12 @@ export class StorageAccountsImpl implements StorageAccounts {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, accountName, parameters, options },
-      restoreBlobRangesOperationSpec,
-      "location"
+      restoreBlobRangesOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

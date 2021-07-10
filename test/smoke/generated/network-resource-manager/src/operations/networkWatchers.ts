@@ -246,10 +246,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -394,10 +396,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      verifyIPFlowOperationSpec,
-      "location"
+      verifyIPFlowOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -482,10 +486,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getNextHopOperationSpec,
-      "location"
+      getNextHopOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -570,10 +576,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getVMSecurityRulesOperationSpec,
-      "location"
+      getVMSecurityRulesOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -658,10 +666,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getTroubleshootingOperationSpec,
-      "location"
+      getTroubleshootingOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -746,10 +756,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getTroubleshootingResultOperationSpec,
-      "location"
+      getTroubleshootingResultOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -834,10 +846,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      setFlowLogConfigurationOperationSpec,
-      "location"
+      setFlowLogConfigurationOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -923,10 +937,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getFlowLogStatusOperationSpec,
-      "location"
+      getFlowLogStatusOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1013,10 +1029,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      checkConnectivityOperationSpec,
-      "location"
+      checkConnectivityOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1103,10 +1121,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getAzureReachabilityReportOperationSpec,
-      "location"
+      getAzureReachabilityReportOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1193,10 +1213,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      listAvailableProvidersOperationSpec,
-      "location"
+      listAvailableProvidersOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1288,10 +1310,12 @@ export class NetworkWatchersImpl implements NetworkWatchers {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
-      getNetworkConfigurationDiagnosticOperationSpec,
-      "location"
+      getNetworkConfigurationDiagnosticOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

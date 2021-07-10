@@ -455,10 +455,12 @@ export class NetworkInterfacesImpl implements NetworkInterfaces {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkInterfaceName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -557,10 +559,12 @@ export class NetworkInterfacesImpl implements NetworkInterfaces {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkInterfaceName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -687,10 +691,12 @@ export class NetworkInterfacesImpl implements NetworkInterfaces {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkInterfaceName, options },
-      getEffectiveRouteTableOperationSpec,
-      "location"
+      getEffectiveRouteTableOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -772,10 +778,12 @@ export class NetworkInterfacesImpl implements NetworkInterfaces {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkInterfaceName, options },
-      listEffectiveNetworkSecurityGroupsOperationSpec,
-      "location"
+      listEffectiveNetworkSecurityGroupsOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

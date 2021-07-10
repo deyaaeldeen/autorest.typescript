@@ -195,10 +195,12 @@ export class ApplicationSecurityGroupsImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, applicationSecurityGroupName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -297,10 +299,12 @@ export class ApplicationSecurityGroupsImpl
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, applicationSecurityGroupName, parameters, options },
-      createOrUpdateOperationSpec,
-      "azure-async-operation"
+      createOrUpdateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

@@ -172,10 +172,12 @@ export class PacketCapturesImpl implements PacketCaptures {
         parameters,
         options
       },
-      createOperationSpec,
-      "azure-async-operation"
+      createOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -277,10 +279,12 @@ export class PacketCapturesImpl implements PacketCaptures {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
-      deleteOperationSpec,
-      "location"
+      deleteOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -360,10 +364,12 @@ export class PacketCapturesImpl implements PacketCaptures {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
-      stopOperationSpec,
-      "location"
+      stopOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -448,10 +454,12 @@ export class PacketCapturesImpl implements PacketCaptures {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
-      getStatusOperationSpec,
-      "location"
+      getStatusOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
