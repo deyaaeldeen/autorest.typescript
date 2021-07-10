@@ -288,10 +288,12 @@ export class ResourceGroupsImpl implements ResourceGroups {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, parameters, options },
-      exportTemplateOperationSpec,
-      "location"
+      exportTemplateOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

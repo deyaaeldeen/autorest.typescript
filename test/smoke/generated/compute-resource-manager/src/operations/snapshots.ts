@@ -517,10 +517,12 @@ export class SnapshotsImpl implements Snapshots {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, snapshotName, grantAccessData, options },
-      grantAccessOperationSpec,
-      "location"
+      grantAccessOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -602,10 +604,12 @@ export class SnapshotsImpl implements Snapshots {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, snapshotName, options },
-      revokeAccessOperationSpec,
-      "location"
+      revokeAccessOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

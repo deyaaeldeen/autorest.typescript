@@ -355,10 +355,12 @@ export class VirtualMachinesImpl implements VirtualMachines {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
-      captureOperationSpec,
-      "location"
+      captureOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1486,10 +1488,12 @@ export class VirtualMachinesImpl implements VirtualMachines {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
-      runCommandOperationSpec,
-      "location"
+      runCommandOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

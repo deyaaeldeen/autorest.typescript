@@ -86,10 +86,12 @@ export class LroParametrizedEndpointsClient extends LroParametrizedEndpointsClie
     const lro = new CoreClientLro(
       sendOperation,
       { accountName, options },
-      pollWithParameterizedEndpointsOperationSpec,
-      "location"
+      pollWithParameterizedEndpointsOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

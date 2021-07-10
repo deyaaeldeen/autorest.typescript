@@ -1466,10 +1466,12 @@ export class DeploymentsImpl implements Deployments {
     const lro = new CoreClientLro(
       sendOperation,
       { deploymentName, parameters, options },
-      whatIfAtSubscriptionScopeOperationSpec,
-      "location"
+      whatIfAtSubscriptionScopeOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -1837,10 +1839,12 @@ export class DeploymentsImpl implements Deployments {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, deploymentName, parameters, options },
-      whatIfOperationSpec,
-      "location"
+      whatIfOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

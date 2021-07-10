@@ -20,10 +20,11 @@ import {
   GetLroStatusFromResponse,
   LongRunningOperation,
   LroConfig,
-  LroStatus,
   PollerConfig,
   RawResponse,
-  ResumablePollOperationState
+  ResumablePollOperationState,
+  LroResponse,
+  LroStatus
 } from "./models";
 import { processPassthroughOperationResult } from "./passthrough";
 import {
@@ -61,20 +62,25 @@ export function createGetLroStatusFromResponse<TResult>(
 }
 
 /**
- * Creates a polling operation that returns a LRO state.
+ * Creates a polling operation.
  */
-export function createPollForLROStatus<TResult>(
-  lroPrimitives: LongRunningOperation<TResult>,
-  config: LroConfig
+export function createPoll<TResult>(
+  lroPrimitives: LongRunningOperation<TResult>
 ): (
   pollingURL: string,
-  pollerConfig: PollerConfig
+  pollerConfig: PollerConfig,
+  getLroStatusFromResponse: GetLroStatusFromResponse<TResult>
 ) => Promise<LroStatus<TResult>> {
   return async (
     path: string,
-    pollerConfig: PollerConfig
+    pollerConfig: PollerConfig,
+    getLroStatusFromResponse: GetLroStatusFromResponse<TResult>
   ): Promise<LroStatus<TResult>> => {
-    const response = await lroPrimitives.sendPollRequest(config, path);
+    const response = await lroPrimitives.sendPollRequest(
+      path,
+      (response: LroResponse<TResult>) =>
+        getLroStatusFromResponse(response).done
+    );
     const retryAfter: string | undefined =
       response.rawResponse.headers["retry-after"];
     if (retryAfter !== undefined) {
@@ -86,7 +92,7 @@ export function createPollForLROStatus<TResult>(
           )
         : retryAfterInMs;
     }
-    return response;
+    return getLroStatusFromResponse(response);
   };
 }
 

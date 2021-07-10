@@ -94,10 +94,12 @@ export class LogAnalyticsImpl implements LogAnalytics {
     const lro = new CoreClientLro(
       sendOperation,
       { location, parameters, options },
-      exportRequestRateByIntervalOperationSpec,
-      "azure-async-operation"
+      exportRequestRateByIntervalOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**
@@ -178,10 +180,12 @@ export class LogAnalyticsImpl implements LogAnalytics {
     const lro = new CoreClientLro(
       sendOperation,
       { location, parameters, options },
-      exportThrottledRequestsOperationSpec,
-      "azure-async-operation"
+      exportThrottledRequestsOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "azure-async-operation"
+    });
   }
 
   /**

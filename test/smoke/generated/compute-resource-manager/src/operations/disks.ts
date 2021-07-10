@@ -508,10 +508,12 @@ export class DisksImpl implements Disks {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, diskName, grantAccessData, options },
-      grantAccessOperationSpec,
-      "location"
+      grantAccessOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**
@@ -593,10 +595,12 @@ export class DisksImpl implements Disks {
     const lro = new CoreClientLro(
       sendOperation,
       { resourceGroupName, diskName, options },
-      revokeAccessOperationSpec,
-      "location"
+      revokeAccessOperationSpec
     );
-    return new LroEngine(lro, { intervalInMs: options?.updateIntervalInMs });
+    return new LroEngine(lro, {
+      intervalInMs: options?.updateIntervalInMs,
+      lroResourceLocationConfig: "location"
+    });
   }
 
   /**

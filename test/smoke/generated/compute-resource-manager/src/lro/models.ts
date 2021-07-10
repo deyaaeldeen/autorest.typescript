@@ -23,6 +23,10 @@ export interface LroEngineOptions {
    * A serialized poller which can be used to resume an existing paused Long-Running-Operation.
    */
   resumeFrom?: string;
+  /**
+   * The potential location of the result of the LRO if specified by the LRO extension in the swagger.
+   */
+  lroResourceLocationConfig?: LroResourceLocationConfig;
 }
 
 export const successStates = ["succeeded"];
@@ -137,8 +141,7 @@ export type LroStatus<T> = LroTerminalState<T> | LroInProgressState<T>;
  * The type of the getLROStatusFromResponse method. It takes the response as input and returns along the response whether the operation has finished.
  */
 export type GetLroStatusFromResponse<T> = (
-  rawResponse: RawResponse,
-  flatResponse: T
+  response: LroResponse<T>
 ) => LroStatus<T>;
 
 /**
@@ -165,9 +168,8 @@ export interface LongRunningOperation<T> {
   /**
    * A function that can be used to poll for the current status of a long running operation.
    */
-  sendPollRequest: (config: LroConfig, path: string) => Promise<LroStatus<T>>;
-  /**
-   * A function that can be used to retrieve the provisioned azure resource.
-   */
-  retrieveAzureAsyncResource: (path?: string) => Promise<LroResponse<T>>;
+  sendPollRequest: (
+    path: string,
+    isDone: (response: LroResponse<T>) => boolean
+  ) => Promise<LroResponse<T>>;
 }
