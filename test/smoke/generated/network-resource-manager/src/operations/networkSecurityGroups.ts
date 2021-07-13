@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   NetworkSecurityGroup,
   NetworkSecurityGroupsListAllNextOptionalParams,
@@ -191,7 +191,7 @@ export class NetworkSecurityGroupsImpl implements NetworkSecurityGroups {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkSecurityGroupName, options },
       deleteOperationSpec
@@ -295,7 +295,7 @@ export class NetworkSecurityGroupsImpl implements NetworkSecurityGroups {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkSecurityGroupName, parameters, options },
       createOrUpdateOperationSpec

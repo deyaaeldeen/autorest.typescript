@@ -12,7 +12,7 @@ import "@azure/core-paging";
 import { PagedAsyncIterableIterator } from "@azure/core-paging";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "./lro";
-import { CoreClientLro, shouldDeserializeLro } from "./coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "./lroImpl";
 import {
   ApplicationGatewaysImpl,
   ApplicationSecurityGroupsImpl,
@@ -766,7 +766,7 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, bastionHostName, bslRequest, options },
       putBastionShareableLinkOperationSpec
@@ -829,7 +829,7 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, bastionHostName, bslRequest, options },
       deleteBastionShareableLinkOperationSpec
@@ -936,7 +936,7 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, bastionHostName, options },
       getActiveSessionsOperationSpec
@@ -1062,7 +1062,7 @@ export class NetworkManagementClient extends NetworkManagementClientContext {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualWANName, vpnClientParams, options },
       generatevirtualwanvpnserverconfigurationvpnprofileOperationSpec

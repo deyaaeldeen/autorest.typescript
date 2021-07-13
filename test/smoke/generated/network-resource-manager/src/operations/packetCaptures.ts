@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   PacketCaptureResult,
   PacketCapturesListOptionalParams,
@@ -163,7 +163,7 @@ export class PacketCapturesImpl implements PacketCaptures {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -276,7 +276,7 @@ export class PacketCapturesImpl implements PacketCaptures {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
       deleteOperationSpec
@@ -361,7 +361,7 @@ export class PacketCapturesImpl implements PacketCaptures {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
       stopOperationSpec
@@ -451,7 +451,7 @@ export class PacketCapturesImpl implements PacketCaptures {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, packetCaptureName, options },
       getStatusOperationSpec

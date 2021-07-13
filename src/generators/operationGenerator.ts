@@ -983,7 +983,7 @@ function writeLroOperationBody(
         headers: currentRawResponse!.headers.toJSON()
       }};
   }`;
-  const LroClassName = useCoreV2 ? "CoreClientLro" : "CoreHttpLro";
+  const LroClassName = "LroImpl";
   methodDeclaration.addStatements([
     sendOperationStatement,
     `const lro = new ${LroClassName}(sendOperation,${operationParamsName},
@@ -1349,17 +1349,10 @@ function addImports(
       namedImports: ["LroEngine"],
       moduleSpecifier: `../lro`
     });
-    if (useCoreV2) {
-      operationGroupFile.addImportDeclaration({
-        namedImports: ["CoreClientLro", "shouldDeserializeLro"],
-        moduleSpecifier: `../coreClientLro`
-      });
-    } else {
-      operationGroupFile.addImportDeclaration({
-        namedImports: ["CoreHttpLro", "shouldDeserializeLro"],
-        moduleSpecifier: `../coreHttpLro`
-      });
-    }
+    operationGroupFile.addImportDeclaration({
+      namedImports: ["LroImpl", "shouldDeserializeLro"],
+      moduleSpecifier: `../lroImpl`
+    });
   }
 }
 

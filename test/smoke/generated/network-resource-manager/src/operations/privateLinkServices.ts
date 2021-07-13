@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   PrivateLinkService,
   PrivateLinkServicesListNextOptionalParams,
@@ -418,7 +418,7 @@ export class PrivateLinkServicesImpl implements PrivateLinkServices {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, serviceName, options },
       deleteOperationSpec
@@ -522,7 +522,7 @@ export class PrivateLinkServicesImpl implements PrivateLinkServices {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, serviceName, parameters, options },
       createOrUpdateOperationSpec
@@ -676,7 +676,7 @@ export class PrivateLinkServicesImpl implements PrivateLinkServices {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, serviceName, peConnectionName, options },
       deletePrivateEndpointConnectionOperationSpec

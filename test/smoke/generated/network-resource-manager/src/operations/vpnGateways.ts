@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   VpnGateway,
   VpnGatewaysListByResourceGroupNextOptionalParams,
@@ -220,7 +220,7 @@ export class VpnGatewaysImpl implements VpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, vpnGatewayParameters, options },
       createOrUpdateOperationSpec
@@ -322,7 +322,7 @@ export class VpnGatewaysImpl implements VpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, options },
       deleteOperationSpec
@@ -407,7 +407,7 @@ export class VpnGatewaysImpl implements VpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, options },
       resetOperationSpec

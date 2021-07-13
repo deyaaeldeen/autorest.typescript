@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   ApplicationGateway,
   ApplicationGatewaysListNextOptionalParams,
@@ -262,7 +262,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, options },
       deleteOperationSpec
@@ -366,7 +366,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, parameters, options },
       createOrUpdateOperationSpec
@@ -493,7 +493,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, options },
       startOperationSpec
@@ -573,7 +573,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, options },
       stopOperationSpec
@@ -658,7 +658,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, options },
       backendHealthOperationSpec
@@ -746,7 +746,7 @@ export class ApplicationGatewaysImpl implements ApplicationGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, applicationGatewayName, probeRequest, options },
       backendHealthOnDemandOperationSpec

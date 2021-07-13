@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   PrivateEndpoint,
   PrivateEndpointsListNextOptionalParams,
@@ -188,7 +188,7 @@ export class PrivateEndpointsImpl implements PrivateEndpoints {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, privateEndpointName, options },
       deleteOperationSpec
@@ -292,7 +292,7 @@ export class PrivateEndpointsImpl implements PrivateEndpoints {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, privateEndpointName, parameters, options },
       createOrUpdateOperationSpec

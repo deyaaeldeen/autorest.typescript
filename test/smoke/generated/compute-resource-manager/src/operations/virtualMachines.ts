@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { ComputeManagementClientContext } from "../computeManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   VirtualMachine,
   VirtualMachinesListByLocationNextOptionalParams,
@@ -352,7 +352,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
       captureOperationSpec
@@ -444,7 +444,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
       createOrUpdateOperationSpec
@@ -532,7 +532,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
       updateOperationSpec
@@ -612,7 +612,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       deleteOperationSpec
@@ -720,7 +720,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       convertToManagedDisksOperationSpec
@@ -799,7 +799,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       deallocateOperationSpec
@@ -944,7 +944,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       powerOffOperationSpec
@@ -1018,7 +1018,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       reapplyOperationSpec
@@ -1091,7 +1091,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       restartOperationSpec
@@ -1164,7 +1164,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       startOperationSpec
@@ -1237,7 +1237,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       redeployOperationSpec
@@ -1310,7 +1310,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       reimageOperationSpec
@@ -1383,7 +1383,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, options },
       performMaintenanceOperationSpec
@@ -1485,7 +1485,7 @@ export class VirtualMachinesImpl implements VirtualMachines {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, vmName, parameters, options },
       runCommandOperationSpec

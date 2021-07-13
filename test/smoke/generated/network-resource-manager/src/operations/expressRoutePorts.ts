@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   ExpressRoutePort,
   ExpressRoutePortsListByResourceGroupNextOptionalParams,
@@ -194,7 +194,7 @@ export class ExpressRoutePortsImpl implements ExpressRoutePorts {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, expressRoutePortName, options },
       deleteOperationSpec
@@ -298,7 +298,7 @@ export class ExpressRoutePortsImpl implements ExpressRoutePorts {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, expressRoutePortName, parameters, options },
       createOrUpdateOperationSpec

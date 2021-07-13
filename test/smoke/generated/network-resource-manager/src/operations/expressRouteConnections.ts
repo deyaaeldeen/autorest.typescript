@@ -13,7 +13,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   ExpressRouteConnection,
   ExpressRouteConnectionsCreateOrUpdateOptionalParams,
@@ -97,7 +97,7 @@ export class ExpressRouteConnectionsImpl implements ExpressRouteConnections {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -211,7 +211,7 @@ export class ExpressRouteConnectionsImpl implements ExpressRouteConnections {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, expressRouteGatewayName, connectionName, options },
       deleteOperationSpec

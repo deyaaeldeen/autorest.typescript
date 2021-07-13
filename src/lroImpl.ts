@@ -1,37 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import {
-  OperationArguments,
-  OperationSpec,
-  FullOperationResponse
-} from "@azure/core-client";
-import { LongRunningOperation, LroResponse, RawResponse } from "./lro";
+import { LongRunningOperation, LroResponse } from "./lro";
 
 const successStates = ["succeeded"];
 const failureStates = ["failed", "canceled", "cancelled"];
 const terminalStates = successStates.concat(failureStates);
 
-export type SendOperationFn<T> = (
-  args: OperationArguments,
-  spec: OperationSpec
-) => Promise<LroResponse<T>>;
-
-function createPollingMethod<TResult>(
-  sendOperationFn: SendOperationFn<TResult>,
-  args: OperationArguments,
-  spec: OperationSpec
-): (path?: string) => Promise<LroResponse<TResult>> {
-  // Make sure we don't send any body to the get request
-  const { requestBody, ...restSpec } = spec;
-  return async (path?: string) => {
-    return sendOperationFn(args, {
-      ...restSpec,
-      httpMethod: "GET",
-      ...(path && { path })
-    });
-  };
-}
+type SendOperationFn<T> = (args: any, spec: any) => Promise<LroResponse<T>>;
 
 /**
  * We need to selectively deserialize our responses, only deserializing if we
@@ -41,7 +17,7 @@ export function shouldDeserializeLro(lroResourceLocationConfig?: string) {
   let initialOperationInfo: LroResponseInfo | undefined;
   let isInitialRequest = true;
 
-  return (response: FullOperationResponse) => {
+  return (response: any) => {
     if (response.status < 200 || response.status >= 300) {
       return true;
     }
@@ -79,7 +55,7 @@ export function shouldDeserializeLro(lroResourceLocationConfig?: string) {
 }
 
 function isAsyncOperationFinalResponse(
-  response: FullOperationResponse,
+  response: any,
   initialOperationInfo: LroResponseInfo,
   lroResourceLocationConfig?: string
 ): boolean {
@@ -110,11 +86,11 @@ function isAsyncOperationFinalResponse(
   return false;
 }
 
-function isLocationFinalResponse(response: FullOperationResponse): boolean {
+function isLocationFinalResponse(response: any): boolean {
   return response.status !== 202;
 }
 
-function isBodyPollingFinalResponse(response: FullOperationResponse): boolean {
+function isBodyPollingFinalResponse(response: any): boolean {
   const provisioningState: string =
     response.parsedBody?.properties?.provisioningState || "Succeeded";
 
@@ -132,7 +108,7 @@ interface LroResponseInfo {
   location?: string;
 }
 
-function getLroData(result: FullOperationResponse): LroResponseInfo {
+function getLroData(result: any): LroResponseInfo {
   return {
     azureAsyncOperation: result.headers.get("azure-asyncoperation"),
     operationLocation: result.headers.get("operation-location"),
@@ -141,27 +117,26 @@ function getLroData(result: FullOperationResponse): LroResponseInfo {
   };
 }
 
-export class CoreClientLro<T> implements LongRunningOperation<T> {
+export class LroImpl<T> implements LongRunningOperation<T> {
   constructor(
     private sendOperationFn: SendOperationFn<T>,
-    private args: OperationArguments,
-    private spec: OperationSpec,
+    private args: any,
+    private spec: any,
     public requestPath: string = spec.path!,
     public requestMethod: string = spec.httpMethod
   ) {}
   public async sendInitialRequest(): Promise<LroResponse<T>> {
     return this.sendOperationFn(this.args, this.spec);
   }
-
   public async sendPollRequest(path: string): Promise<LroResponse<T>> {
     const updatedArgs = { ...this.args };
     if (updatedArgs.options) {
       (updatedArgs.options as any).shouldDeserialize = true;
     }
-    return createPollingMethod(
-      this.sendOperationFn,
-      updatedArgs,
-      this.spec
-    )(path);
+    return this.sendOperationFn(updatedArgs, {
+      ...this.spec,
+      path,
+      httpMethod: "GET"
+    });
   }
 }

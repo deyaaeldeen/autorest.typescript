@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   PublicIPAddress,
   PublicIPAddressesListAllNextOptionalParams,
@@ -371,7 +371,7 @@ export class PublicIPAddressesImpl implements PublicIPAddresses {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, publicIpAddressName, options },
       deleteOperationSpec
@@ -475,7 +475,7 @@ export class PublicIPAddressesImpl implements PublicIPAddresses {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, publicIpAddressName, parameters, options },
       createOrUpdateOperationSpec

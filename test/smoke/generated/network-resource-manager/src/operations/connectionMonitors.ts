@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   ConnectionMonitorResult,
   ConnectionMonitorsListOptionalParams,
@@ -167,7 +167,7 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -280,7 +280,7 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
       deleteOperationSpec
@@ -392,7 +392,7 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
       stopOperationSpec
@@ -477,7 +477,7 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
       startOperationSpec
@@ -567,7 +567,7 @@ export class ConnectionMonitorsImpl implements ConnectionMonitors {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, connectionMonitorName, options },
       queryOperationSpec

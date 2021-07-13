@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   P2SVpnGateway,
   P2SVpnGatewaysListByResourceGroupNextOptionalParams,
@@ -229,7 +229,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, p2SVpnGatewayParameters, options },
       createOrUpdateOperationSpec
@@ -332,7 +332,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, options },
       deleteOperationSpec
@@ -444,7 +444,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, parameters, options },
       generateVpnProfileOperationSpec
@@ -533,7 +533,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, options },
       getP2SVpnConnectionHealthOperationSpec
@@ -624,7 +624,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, gatewayName, request, options },
       getP2SVpnConnectionHealthDetailedOperationSpec
@@ -710,7 +710,7 @@ export class P2SVpnGatewaysImpl implements P2SVpnGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, p2SVpnGatewayName, request, options },
       disconnectP2SVpnConnectionsOperationSpec

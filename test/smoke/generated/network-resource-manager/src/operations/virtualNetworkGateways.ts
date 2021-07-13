@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   VirtualNetworkGateway,
   VirtualNetworkGatewaysListNextOptionalParams,
@@ -263,7 +263,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, parameters, options },
       createOrUpdateOperationSpec
@@ -363,7 +363,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       deleteOperationSpec
@@ -450,7 +450,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, parameters, options },
       updateTagsOperationSpec
@@ -570,7 +570,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       resetOperationSpec
@@ -650,7 +650,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       resetVpnClientSharedKeyOperationSpec
@@ -741,7 +741,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, parameters, options },
       generatevpnclientpackageOperationSpec
@@ -835,7 +835,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, parameters, options },
       generateVpnProfileOperationSpec
@@ -926,7 +926,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       getVpnProfilePackageUrlOperationSpec
@@ -1012,7 +1012,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       getBgpPeerStatusOperationSpec
@@ -1115,7 +1115,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       getLearnedRoutesOperationSpec
@@ -1204,7 +1204,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, peer, options },
       getAdvertisedRoutesOperationSpec
@@ -1299,7 +1299,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -1398,7 +1398,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       getVpnclientIpsecParametersOperationSpec
@@ -1510,7 +1510,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       startPacketCaptureOperationSpec
@@ -1598,7 +1598,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, parameters, options },
       stopPacketCaptureOperationSpec
@@ -1690,7 +1690,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, options },
       getVpnclientConnectionHealthOperationSpec
@@ -1773,7 +1773,7 @@ export class VirtualNetworkGatewaysImpl implements VirtualNetworkGateways {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayName, request, options },
       disconnectVirtualNetworkGatewayVpnConnectionsOperationSpec

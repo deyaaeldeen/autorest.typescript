@@ -13,7 +13,7 @@ import * as Parameters from "../models/parameters";
 import { ComputeManagementClientContext } from "../computeManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   RequestRateByIntervalInput,
   LogAnalyticsExportRequestRateByIntervalOptionalParams,
@@ -91,7 +91,7 @@ export class LogAnalyticsImpl implements LogAnalytics {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { location, parameters, options },
       exportRequestRateByIntervalOperationSpec
@@ -177,7 +177,7 @@ export class LogAnalyticsImpl implements LogAnalytics {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { location, parameters, options },
       exportThrottledRequestsOperationSpec

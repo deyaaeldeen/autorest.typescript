@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   VirtualNetworkGatewayConnection,
   VirtualNetworkGatewayConnectionsListNextOptionalParams,
@@ -170,7 +170,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -276,7 +276,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayConnectionName, options },
       deleteOperationSpec
@@ -363,7 +363,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -461,7 +461,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -599,7 +599,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,
@@ -698,7 +698,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualNetworkGatewayConnectionName, options },
       startPacketCaptureOperationSpec
@@ -788,7 +788,7 @@ export class VirtualNetworkGatewayConnectionsImpl
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       {
         resourceGroupName,

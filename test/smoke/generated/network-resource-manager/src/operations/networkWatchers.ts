@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   NetworkWatcher,
   NetworkWatchersListOptionalParams,
@@ -243,7 +243,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, options },
       deleteOperationSpec
@@ -393,7 +393,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       verifyIPFlowOperationSpec
@@ -483,7 +483,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getNextHopOperationSpec
@@ -573,7 +573,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getVMSecurityRulesOperationSpec
@@ -663,7 +663,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getTroubleshootingOperationSpec
@@ -753,7 +753,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getTroubleshootingResultOperationSpec
@@ -843,7 +843,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       setFlowLogConfigurationOperationSpec
@@ -934,7 +934,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getFlowLogStatusOperationSpec
@@ -1026,7 +1026,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       checkConnectivityOperationSpec
@@ -1118,7 +1118,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getAzureReachabilityReportOperationSpec
@@ -1210,7 +1210,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       listAvailableProvidersOperationSpec
@@ -1307,7 +1307,7 @@ export class NetworkWatchersImpl implements NetworkWatchers {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, networkWatcherName, parameters, options },
       getNetworkConfigurationDiagnosticOperationSpec

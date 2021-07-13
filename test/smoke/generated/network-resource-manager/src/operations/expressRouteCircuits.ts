@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   ExpressRouteCircuit,
   ExpressRouteCircuitsListNextOptionalParams,
@@ -201,7 +201,7 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, circuitName, options },
       deleteOperationSpec
@@ -305,7 +305,7 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, circuitName, parameters, options },
       createOrUpdateOperationSpec
@@ -417,7 +417,7 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
       listArpTableOperationSpec
@@ -514,7 +514,7 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
       listRoutesTableOperationSpec
@@ -611,7 +611,7 @@ export class ExpressRouteCircuitsImpl implements ExpressRouteCircuits {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, circuitName, peeringName, devicePath, options },
       listRoutesTableSummaryOperationSpec

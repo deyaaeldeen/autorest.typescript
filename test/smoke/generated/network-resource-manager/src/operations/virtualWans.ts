@@ -15,7 +15,7 @@ import * as Parameters from "../models/parameters";
 import { NetworkManagementClientContext } from "../networkManagementClientContext";
 import { PollerLike, PollOperationState } from "@azure/core-lro";
 import { LroEngine } from "../lro";
-import { CoreClientLro, shouldDeserializeLro } from "../coreClientLro";
+import { LroImpl, shouldDeserializeLro } from "../lroImpl";
 import {
   VirtualWAN,
   VirtualWansListByResourceGroupNextOptionalParams,
@@ -218,7 +218,7 @@ export class VirtualWansImpl implements VirtualWans {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualWANName, wANParameters, options },
       createOrUpdateOperationSpec
@@ -320,7 +320,7 @@ export class VirtualWansImpl implements VirtualWans {
       };
     };
 
-    const lro = new CoreClientLro(
+    const lro = new LroImpl(
       sendOperation,
       { resourceGroupName, virtualWANName, options },
       deleteOperationSpec
