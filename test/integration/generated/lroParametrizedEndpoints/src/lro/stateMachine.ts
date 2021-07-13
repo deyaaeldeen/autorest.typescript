@@ -15,13 +15,13 @@ import {
   processBodyPollingOperationResult
 } from "./bodyPolling";
 import { processLocationPollingOperationResult } from "./locationPolling";
+import { logger } from "./logger";
 import {
   LroResourceLocationConfig,
   GetLroStatusFromResponse,
   LongRunningOperation,
   LroConfig,
   PollerConfig,
-  RawResponse,
   ResumablePollOperationState,
   LroResponse,
   LroStatus
@@ -76,11 +76,7 @@ export function createPoll<TResult>(
     pollerConfig: PollerConfig,
     getLroStatusFromResponse: GetLroStatusFromResponse<TResult>
   ): Promise<LroStatus<TResult>> => {
-    const response = await lroPrimitives.sendPollRequest(
-      path,
-      (response: LroResponse<TResult>) =>
-        getLroStatusFromResponse(response).done
-    );
+    const response = await lroPrimitives.sendPollRequest(path);
     const retryAfter: string | undefined =
       response.rawResponse.headers["retry-after"];
     if (retryAfter !== undefined) {
@@ -119,10 +115,10 @@ export function createInitializeState<TResult>(
   state: ResumablePollOperationState<TResult>,
   requestPath: string,
   requestMethod: string
-): (rawResponse: RawResponse, flatResponse: unknown) => boolean {
-  return (rawResponse: RawResponse, flatResponse: unknown) => {
-    if (isUnexpectedInitialResponse(rawResponse)) return true;
-    state.initialRawResponse = rawResponse;
+): (response: LroResponse<TResult>) => boolean {
+  return (response: LroResponse<TResult>): boolean => {
+    if (isUnexpectedInitialResponse(response.rawResponse)) return true;
+    state.initialRawResponse = response.rawResponse;
     state.isStarted = true;
     state.pollingURL = getPollingUrl(state.initialRawResponse, requestPath);
     state.config = inferLroMode(
@@ -136,9 +132,10 @@ export function createInitializeState<TResult>(
       (state.config.mode === "Body" &&
         isBodyPollingDone(state.initialRawResponse))
     ) {
-      state.result = flatResponse as TResult;
+      state.result = response.flatResponse as TResult;
       state.isCompleted = true;
     }
+    logger.verbose(`LRO: initial state: ${JSON.stringify(state)}`);
     return Boolean(state.isCompleted);
   };
 }

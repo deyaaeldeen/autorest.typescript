@@ -2,28 +2,21 @@
 // Licensed under the MIT license.
 
 import { processAzureAsyncOperationResult } from "./azureAsyncPolling";
-import {
-  isBodyPollingDone,
-  processBodyPollingOperationResult
-} from "./bodyPolling";
+import { isBodyPollingDone, processBodyPollingOperationResult } from "./bodyPolling";
 import { processLocationPollingOperationResult } from "./locationPolling";
+import { logger } from "./logger";
 import {
   LroResourceLocationConfig,
   GetLroStatusFromResponse,
   LongRunningOperation,
   LroConfig,
   PollerConfig,
-  RawResponse,
   ResumablePollOperationState,
   LroResponse,
   LroStatus
 } from "./models";
 import { processPassthroughOperationResult } from "./passthrough";
-import {
-  getPollingUrl,
-  inferLroMode,
-  isUnexpectedInitialResponse
-} from "./requestUtils";
+import { getPollingUrl, inferLroMode, isUnexpectedInitialResponse } from "./requestUtils";
 
 /**
  * creates a stepping function that maps an LRO state to another.
@@ -68,20 +61,12 @@ export function createPoll<TResult>(
     pollerConfig: PollerConfig,
     getLroStatusFromResponse: GetLroStatusFromResponse<TResult>
   ): Promise<LroStatus<TResult>> => {
-    const response = await lroPrimitives.sendPollRequest(
-      path,
-      (response: LroResponse<TResult>) =>
-        getLroStatusFromResponse(response).done
-    );
-    const retryAfter: string | undefined =
-      response.rawResponse.headers["retry-after"];
+    const response = await lroPrimitives.sendPollRequest(path);
+    const retryAfter: string | undefined = response.rawResponse.headers["retry-after"];
     if (retryAfter !== undefined) {
       const retryAfterInMs = parseInt(retryAfter);
       pollerConfig.intervalInMs = isNaN(retryAfterInMs)
-        ? calculatePollingIntervalFromDate(
-            new Date(retryAfter),
-            pollerConfig.intervalInMs
-          )
+        ? calculatePollingIntervalFromDate(new Date(retryAfter), pollerConfig.intervalInMs)
         : retryAfterInMs;
     }
     return getLroStatusFromResponse(response);
@@ -111,26 +96,22 @@ export function createInitializeState<TResult>(
   state: ResumablePollOperationState<TResult>,
   requestPath: string,
   requestMethod: string
-): (rawResponse: RawResponse, flatResponse: unknown) => boolean {
-  return (rawResponse: RawResponse, flatResponse: unknown) => {
-    if (isUnexpectedInitialResponse(rawResponse)) return true;
-    state.initialRawResponse = rawResponse;
+): (response: LroResponse<TResult>) => boolean {
+  return (response: LroResponse<TResult>): boolean => {
+    if (isUnexpectedInitialResponse(response.rawResponse)) return true;
+    state.initialRawResponse = response.rawResponse;
     state.isStarted = true;
     state.pollingURL = getPollingUrl(state.initialRawResponse, requestPath);
-    state.config = inferLroMode(
-      requestPath,
-      requestMethod,
-      state.initialRawResponse
-    );
+    state.config = inferLroMode(requestPath, requestMethod, state.initialRawResponse);
     /** short circuit polling if body polling is done in the initial request */
     if (
       state.config.mode === undefined ||
-      (state.config.mode === "Body" &&
-        isBodyPollingDone(state.initialRawResponse))
+      (state.config.mode === "Body" && isBodyPollingDone(state.initialRawResponse))
     ) {
-      state.result = flatResponse as TResult;
+      state.result = response.flatResponse as TResult;
       state.isCompleted = true;
     }
+    logger.verbose(`LRO: initial state: ${JSON.stringify(state)}`);
     return Boolean(state.isCompleted);
   };
 }

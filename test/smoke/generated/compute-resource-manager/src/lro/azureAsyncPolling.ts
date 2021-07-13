@@ -32,11 +32,16 @@ function isAzureAsyncPollingDone(rawResponse: RawResponse): boolean {
     isUnexpectedPollingResponse(rawResponse) ||
     failureStates.includes(state)
   ) {
-    throw new Error(`Operation status: ${state}`);
+    throw new Error(
+      `The long running operation has failed. The provisioning state: ${state}.`
+    );
   }
   return successStates.includes(state);
 }
 
+/**
+ * Sends a request to the URI of the provisioned resource if needed.
+ */
 async function sendFinalRequest<TResult>(
   lro: LongRunningOperation<TResult>,
   resourceLocation: string,
@@ -44,15 +49,12 @@ async function sendFinalRequest<TResult>(
 ): Promise<LroResponse<TResult> | undefined> {
   switch (lroResourceLocationConfig) {
     case "original-uri":
-      return lro.sendPollRequest(lro.requestPath, () => true);
+      return lro.sendPollRequest(lro.requestPath);
     case "azure-async-operation":
-      return Promise.resolve(undefined);
+      return undefined;
     case "location":
     default:
-      return lro.sendPollRequest(
-        resourceLocation ?? lro.requestPath,
-        () => true
-      );
+      return lro.sendPollRequest(resourceLocation ?? lro.requestPath);
   }
 }
 

@@ -6,7 +6,7 @@ import {
   OperationArguments,
   OperationSpec
 } from "@azure/core-http";
-import { LongRunningOperation, LroResponse, RawResponse } from "./lro";
+import { LongRunningOperation, LroResponse } from "./lro";
 
 const successStates = ["succeeded"];
 const failureStates = ["failed", "canceled", "cancelled"];
@@ -141,15 +141,8 @@ export class CoreHttpLro<T> implements LongRunningOperation<T> {
     public requestPath: string = spec.path!,
     public requestMethod: string = spec.httpMethod
   ) {}
-  public async sendInitialRequest(
-    initializeState: (
-      rawResponse: RawResponse,
-      flatResponse: unknown
-    ) => boolean
-  ): Promise<LroResponse<T>> {
-    const response = await this.sendOperationFn(this.args, this.spec);
-    initializeState(response.rawResponse, response.flatResponse);
-    return response;
+  public async sendInitialRequest(): Promise<LroResponse<T>> {
+    return this.sendOperationFn(this.args, this.spec);
   }
 
   public async sendPollRequest(path: string): Promise<LroResponse<T>> {
@@ -157,10 +150,9 @@ export class CoreHttpLro<T> implements LongRunningOperation<T> {
     if (updatedArgs.options) {
       (updatedArgs.options as any).shouldDeserialize = true;
     }
-    const { requestBody, responses, ...restSpec } = this.spec;
+    const { requestBody, ...restSpec } = this.spec;
     return this.sendOperationFn(updatedArgs, {
       ...restSpec,
-      responses: responses,
       httpMethod: "GET",
       ...(path && { path })
     });

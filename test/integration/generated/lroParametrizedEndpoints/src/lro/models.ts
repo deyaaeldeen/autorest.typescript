@@ -159,17 +159,9 @@ export interface LongRunningOperation<T> {
   /**
    * A function that can be used to send initial request to the service.
    */
-  sendInitialRequest: (
-    initializeState: (
-      rawResponse: RawResponse,
-      flatResponse: unknown
-    ) => boolean
-  ) => Promise<LroResponse<T>>;
+  sendInitialRequest: () => Promise<LroResponse<T>>;
   /**
    * A function that can be used to poll for the current status of a long running operation.
    */
-  sendPollRequest: (
-    path: string,
-    isDone: (response: LroResponse<T>) => boolean
-  ) => Promise<LroResponse<T>>;
+  sendPollRequest: (path: string) => Promise<LroResponse<T>>;
 }

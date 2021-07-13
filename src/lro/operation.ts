@@ -2,7 +2,8 @@
 // Licensed under the MIT license.
 
 import { AbortSignalLike } from "@azure/abort-controller";
-import { PollOperationState, PollOperation } from "@azure/core-lro";
+import { PollOperation, PollOperationState } from "@azure/core-lro";
+import { logger } from "./logger";
 import {
   PollerConfig,
   ResumablePollOperationState,
@@ -66,15 +67,13 @@ export class GenericPollOperation<
         this.lro.requestPath,
         this.lro.requestMethod
       );
-      await this.lro.sendInitialRequest(initializeState);
+      const response = await this.lro.sendInitialRequest();
+      initializeState(response);
     }
 
     if (!state.isCompleted) {
-      if (
-        this.poll === undefined ||
-        this.getLroStatusFromResponse === undefined
-      ) {
-        if (state.config === undefined) {
+      if (!this.poll || !this.getLroStatusFromResponse) {
+        if (!state.config) {
           throw new Error(
             "Bad state: LRO mode is undefined. Please check if the serialized state is well-formed."
           );
@@ -86,18 +85,18 @@ export class GenericPollOperation<
         );
         this.poll = createPoll(this.lro);
       }
-      if (state.pollingURL === undefined) {
+      if (!state.pollingURL) {
         throw new Error(
           "Bad state: polling URL is undefined. Please check if the serialized state is well-formed."
         );
       }
-      const memoizedGetLroStatusFromResponse = memoize(
-        this.getLroStatusFromResponse
-      )();
       const currentState = await this.poll(
         state.pollingURL,
         this.pollerConfig!,
-        memoizedGetLroStatusFromResponse
+        this.getLroStatusFromResponse
+      );
+      logger.verbose(
+        `LRO: polling response: ${JSON.stringify(currentState.rawResponse)}`
       );
       if (currentState.done) {
         state.result = currentState.flatResponse;
@@ -110,6 +109,7 @@ export class GenericPollOperation<
         );
       }
     }
+    logger.verbose(`LRO: current state: ${JSON.stringify(state)}`);
     options?.fireProgress?.(state);
     return this;
   }
@@ -127,18 +127,4 @@ export class GenericPollOperation<
       state: this.state
     });
   }
-}
-
-function memoize<TInput extends unknown[], TResult>(
-  f: (...args: TInput) => TResult
-): () => (...args: TInput) => TResult {
-  return (): ((...args: TInput) => TResult) => {
-    let result: TResult | undefined = undefined;
-    return (...args: TInput): TResult => {
-      if (result === undefined) {
-        result = f(...args);
-      }
-      return result;
-    };
-  };
 }

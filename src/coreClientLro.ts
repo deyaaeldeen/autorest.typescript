@@ -19,43 +19,17 @@ export type SendOperationFn<T> = (
 
 function createPollingMethod<TResult>(
   sendOperationFn: SendOperationFn<TResult>,
-  isDone: (response: LroResponse<TResult>) => boolean,
   args: OperationArguments,
   spec: OperationSpec
 ): (path?: string) => Promise<LroResponse<TResult>> {
-  const customerCallback = args?.options?.onResponse;
-  const updatedArgs = {
-    ...args,
-    options: {
-      ...args.options,
-      onResponse: (
-        rawResponse: FullOperationResponse,
-        flatResponse: unknown
-      ): void => {
-        const response = {
-          rawResponse: {
-            statusCode: rawResponse.status,
-            body: rawResponse.parsedBody,
-            headers: rawResponse.headers.toJSON()
-          },
-          flatResponse: flatResponse as TResult
-        };
-        if (isDone(response)) {
-          customerCallback?.(rawResponse, flatResponse);
-        }
-      }
-    }
-  };
   // Make sure we don't send any body to the get request
-  const { requestBody, responses, ...restSpec } = spec;
+  const { requestBody, ...restSpec } = spec;
   return async (path?: string) => {
-    const response = await sendOperationFn(updatedArgs, {
+    return sendOperationFn(args, {
       ...restSpec,
-      responses: responses,
       httpMethod: "GET",
       ...(path && { path })
     });
-    return response;
   };
 }
 
@@ -175,51 +149,17 @@ export class CoreClientLro<T> implements LongRunningOperation<T> {
     public requestPath: string = spec.path!,
     public requestMethod: string = spec.httpMethod
   ) {}
-  public async sendInitialRequest(
-    initializeState: (
-      rawResponse: RawResponse,
-      flatResponse: unknown
-    ) => boolean
-  ): Promise<LroResponse<T>> {
-    const { onResponse, ...restOptions } = this.args.options || {};
-    return this.sendOperationFn(
-      {
-        ...this.args,
-        options: {
-          ...restOptions,
-          onResponse: (
-            rawResponse: FullOperationResponse,
-            flatResponse: unknown
-          ) => {
-            const isCompleted = initializeState(
-              {
-                statusCode: rawResponse.status,
-                body: rawResponse.parsedBody,
-                headers: rawResponse.headers.toJSON()
-              },
-              flatResponse
-            );
-            if (isCompleted) {
-              onResponse?.(rawResponse, flatResponse);
-            }
-          }
-        }
-      },
-      this.spec
-    );
+  public async sendInitialRequest(): Promise<LroResponse<T>> {
+    return this.sendOperationFn(this.args, this.spec);
   }
 
-  public async sendPollRequest(
-    path: string,
-    isDone: (response: LroResponse<T>) => boolean
-  ): Promise<LroResponse<T>> {
+  public async sendPollRequest(path: string): Promise<LroResponse<T>> {
     const updatedArgs = { ...this.args };
     if (updatedArgs.options) {
       (updatedArgs.options as any).shouldDeserialize = true;
     }
     return createPollingMethod(
       this.sendOperationFn,
-      isDone,
       updatedArgs,
       this.spec
     )(path);
