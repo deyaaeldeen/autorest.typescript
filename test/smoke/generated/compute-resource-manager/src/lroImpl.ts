@@ -141,9 +141,8 @@ export class LroImpl<T> implements LongRunningOperation<T> {
     if (updatedArgs.options) {
       (updatedArgs.options as any).shouldDeserialize = true;
     }
-    const { requestBody, ...restSpec } = this.spec;
     return this.sendOperationFn(updatedArgs, {
-      ...restSpec,
+      ...this.spec,
       path,
       httpMethod: "GET"
     });
